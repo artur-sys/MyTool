@@ -1,0 +1,13 @@
+import os
+
+def scan_wpa_networks():
+    os.system("sudo iwlist wlan0 scan | grep 'ESSID'")
+
+def check_vulnerabilities(target):
+    # Aqui você pode implementar a lógica para verificar vulnerabilidades
+    print(f"Verificando vulnerabilidades em {target}...")
+
+if __name__ == "__main__":
+    scan_wpa_networks()
+    target = input("Digite o endereço do alvo para verificar vulnerabilidades: ")
+    check_vulnerabilities(target)

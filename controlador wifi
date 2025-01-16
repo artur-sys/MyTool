@@ -1,0 +1,18 @@
+import os
+
+def scan_sip_network(ip_range):
+    os.system(f'nmap -sS -p 5060 {ip_range}')
+
+def scan_wpa_network(ssid):
+    os.system(f'airmon-ng start wlan0')
+    os.system(f'airodump-ng wlan0mon --bssid {ssid} -c 6')
+
+def main():
+    ip_range = input("Digite o intervalo de IP para escanear redes SIP: ")
+    scan_sip_network(ip_range)
+    
+    ssid = input("Digite o SSID da rede WPA para escanear: ")
+    scan_wpa_network(ssid)
+
+if __name__ == "__main__":
+    main()

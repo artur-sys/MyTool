@@ -1,0 +1,26 @@
+import hashlib
+
+def testar_senha(senha, hash_alvo):
+    # Cria um hash da senha fornecida
+    hash_senha = hashlib.sha256(senha.encode()).hexdigest()
+    
+    # Compara o hash da senha com o hash alvo
+    if hash_senha == hash_alvo:
+        print(f"Senha encontrada: {senha}")
+        return True
+    else:
+        return False
+
+def main():
+    # Hash de uma senha conhecida (para fins de teste)
+    hash_alvo = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"  # hash de "password"
+    
+    # Lista de senhas para testar
+    lista_senhas = ["123456", "password", "admin", "letmein", "qwerty"]
+    
+    for senha in lista_senhas:
+        if testar_senha(senha, hash_alvo):
+            break
+
+if __name__ == "__main__":
+    main()

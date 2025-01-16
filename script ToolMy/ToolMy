@@ -1,0 +1,46 @@
+import os
+import platform
+import socket
+import subprocess
+import re
+
+def coletar_dados_pessoais():
+    """
+    Coleta dados pessoais do usuário.
+    """
+    nome = input("Digite seu nome: ")
+    idade = input("Digite sua idade: ")
+    email = input("Digite seu e-mail: ")
+    telefone = input("Digite seu telefone: ")
+
+    dados_pessoais = {
+        "nome": nome,
+        "idade": idade,
+        "email": email,
+        "telefone": telefone
+    }
+
+    return dados_pessoais
+
+def realizar_scanner():
+    """
+    Realiza um scanner de segurança básico.
+    """
+    print("Realizando scanner de segurança...")
+    subprocess.run(["nmap", "-sS", "localhost"])
+
+def main():
+    print("ToolMy - Ferramenta de coleta de dados e scanner de segurança")
+    print("-----------------------------------------------")
+
+    dados_pessoais = coletar_dados_pessoais()
+    print("\nDados Pessoais:")
+    print(f"Nome: {dados_pessoais['nome']}")
+    print(f"Idade: {dados_pessoais['idade']}")
+    print(f"E-mail: {dados_pessoais['email']}")
+    print(f"Telefone: {dados_pessoais['telefone']}")
+
+    realizar_scanner()
+
+if __name__ == "__main__":
+    main()

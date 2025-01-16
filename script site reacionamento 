@@ -1,0 +1,15 @@
+import requests
+
+def check_admin_page(url):
+    admin_pages = ['admin', 'login', 'dashboard', 'admin.php', 'admin.html']
+    for page in admin_pages:
+        full_url = f"{url}/{page}"
+        response = requests.get(full_url)
+        if response.status_code == 200:
+            print(f"Página encontrada: {full_url}")
+        else:
+            print(f"Página não encontrada: {full_url}")
+
+# Exemplo de uso
+site_url = "https://www.litmatchapp.com/#/"
+check_admin_page(site_url)

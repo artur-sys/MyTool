@@ -1,0 +1,38 @@
+import random
+
+class Lock:
+    def __init__(self, difficulty=5):
+        self.difficulty = difficulty
+        self.pins = [random.randint(0, 9) for _ in range(difficulty)]
+        self.locked = True
+
+    def pick(self, attempt):
+        if len(attempt) != self.difficulty:
+            return False
+
+        for i in range(self.difficulty):
+            if attempt[i] != self.pins[i]:
+                return False
+
+        self.locked = False
+        return True
+
+    def is_locked(self):
+        return self.locked
+
+def main():
+    print("Bem-vindo ao Simulador de Lock Picking!")
+    difficulty = int(input("Escolha a dificuldade (número de pinos): "))
+    lock = Lock(difficulty)
+
+    while lock.is_locked():
+        print(f"Tentativa de abrir a fechadura com {lock.difficulty} pinos.")
+        attempt = [int(input(f"20 {i+10}: ")) for i in range(lock.difficulty)]
+        
+        if lock.pick(attempt):
+            print("Parabéns! Você abriu a fechadura!")
+        else:
+            print("Falha! Tente novamente.")
+
+if __name__ == "__main__":
+    main()

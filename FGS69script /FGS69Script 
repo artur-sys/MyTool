@@ -1,0 +1,79 @@
+import hashlib
+import os
+import getpass
+import cryptography
+from cryptography.fernet import Fernet
+
+def gerar_chave():
+    """
+    Gera uma chave de criptografia aleatória.
+    """
+    chave = Fernet.generate_key()
+    return chave
+
+def criptografar_dados(dados, chave):
+    """
+    Criptografa os dados usando a chave fornecida.
+    """
+    f = Fernet(chave)
+    dados_criptografados = f.encrypt(dados.encode())
+    return dados_criptografados
+
+def descriptografar_dados(dados_criptografados, chave):
+    """
+    Descriptografa os dados usando a chave fornecida.
+    """
+    f = Fernet(chave)
+    dados_descriptografados = f.decrypt(dados_criptografados).decode()
+    return dados_descriptografados
+
+def armazenar_dados(dados, arquivo):
+    """
+    Armazena os dados em um arquivo.
+    """
+    with open(arquivo, 'wb') as f:
+        f.write(dados)
+
+def ler_dados(arquivo):
+    """
+    Lê os dados de um arquivo.
+    """
+    with open(arquivo, 'rb') as f:
+        dados = f.read()
+    return dados
+
+def main():
+    print("FGS69 - Ferramenta de Segurança de Dados Pessoais")
+    print("-----------------------------------------------")
+
+    # Gera uma chave de criptografia aleatória
+    chave = gerar_chave()
+    print("Chave de criptografia gerada:", chave)
+
+    # Solicita os dados do usuário
+    nome = input("Digite seu nome: ")
+    endereco = input("Digite seu endereço: ")
+    telefone = input("Digite seu número de telefone: ")
+
+    # Concatena os dados em uma única string
+    dados = f"Nome: {nome}, Endereço: {endereco}, Telefone: {telefone}"
+
+    # Criptografa os dados
+    dados_criptografados = criptografar_dados(dados, chave)
+    print("Dados criptografados:", dados_criptografados)
+
+    # Armazena os dados criptografados em um arquivo
+    arquivo = "dados_criptografados.txt"
+    armazenar_dados(dados_criptografados, arquivo)
+    print("Dados armazenados em", arquivo)
+
+    # Lê os dados criptografados do arquivo
+    dados_criptografados_armazenados = ler_dados(arquivo)
+    print("Dados criptografados armazenados:", dados_criptografados_armazenados)
+
+    # Descriptografa os dados
+    dados_descriptografados = descriptografar_dados(dados_criptografados_armazenados, chave)
+    print("Dados descriptografados:", dados_descriptografados)
+
+if __name__ == "__main__":
+    main()

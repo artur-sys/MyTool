@@ -1,0 +1,12 @@
+# Exemplo em Python
+numeros_bloqueados = ["939765756", "939765756"]
+
+def bloquear_numero(numero):
+    if numero in numeros_bloqueados:
+        return "Número bloqueado."
+    else:
+        return "Número permitido."
+
+# Testando a função
+print(bloquear_numero("939765756"))  # Saída: Número bloqueado.
+print(bloquear_numero("939765756"))  # Saída: Número permitido

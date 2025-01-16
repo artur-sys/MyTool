@@ -1,0 +1,36 @@
+import socket
+import nmap
+
+def descobrir_ip(hostname):
+    try:
+        ip = socket.gethostbyname(hostname)
+        print(f"O IP de {hostname} é: {ip}")
+        return ip
+    except socket.error as e:
+        print(f"Erro ao descobrir o IP de {hostname}: {e}")
+        return None
+
+def varrer_portas(ip, portas="1-1024"):
+    try:
+        nm = nmap.PortScanner()
+        print(f"Varrendo portas {portas} no IP {ip}...")
+        nm.scan(ip, portas)
+        
+        for host in nm.all_hosts():
+            print(f"Host: {host} ({nm[host].hostname()})")
+            print(f"Estado: {nm[host].state()}")
+            for proto in nm[host].all_protocols():
+                print(f"Protocolo: {proto}")
+                lport = nm[host][proto].keys()
+                for port in lport:
+                    print(f"Porta: {port}\tEstado: {nm[host][proto][port]['state']}")
+    except Exception as e:
+        print(f"Erro ao varrer portas: {e}")
+
+if __name__ == "__main__":
+    hostname = input("Digite o hostname ou endereço IP: ")
+    ip = descobrir_ip(hostname)
+    
+    if ip:
+        portas = input("Digite o intervalo de portas para varrer (ex: 1-1024): ")
+        varrer_portas(ip, portas)

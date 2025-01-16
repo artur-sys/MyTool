@@ -1,0 +1,24 @@
+# app.py
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+# Simulação de uma base de dados de pessoas
+people_db = {
+    "123": {"name": "João Silva", "age": 30, "city": "São Paulo"},
+    "456": {"name": "Maria Oliveira", "age": 25, "city": "Rio de Janeiro"},
+    "789": {"name": "Carlos Souza", "age": 40, "city": "Belo Horizonte"}
+}
+
+@app.route('/find_person', methods=['GET'])
+def find_person():
+    person_id = request.args.get('id')
+    person = people_db.get(person_id)
+    if person:
+        return jsonify(person)
+    else:
+        return jsonify({"error": "Person not found"}), 404
+
+if __name__ == '__main__':
+    app.run(debug=True)
+

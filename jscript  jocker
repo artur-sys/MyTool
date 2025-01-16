@@ -1,0 +1,35 @@
+import subprocess
+from scapy.all import *
+
+def scan_wifi():
+    print("[*] Scanning for Wi-Fi networks...")
+    try:
+        # Usando o comando nmcli para listar redes Wi-Fi
+        result = subprocess.run(['nmcli', 'dev', 'wifi'], capture_output=True, text=True)
+        print(result.stdout)
+    except Exception as e:
+        print(f"[!] Error scanning Wi-Fi networks: {e}")
+
+def capture_packets(interface, count=10):
+    print(f"[*] Capturing {count} packets on interface {interface}...")
+    try:
+        packets = sniff(iface=interface, count=count)
+        for packet in packets:
+            print(packet.summary())
+    except Exception as e:
+        print(f"[!] Error capturing packets: {e}")
+
+def main():
+    print("[*] Starting Jocker...")
+    
+    # Escolha a interface de rede (ex: wlan0)
+    interface = "wlan0"
+    
+    # Escaneia redes Wi-Fi
+    scan_wifi()
+    
+    # Captura pacotes na interface escolhida
+    capture_packets(interface)
+
+if __name__ == "__main__":
+    main()
